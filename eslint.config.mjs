@@ -11,7 +11,7 @@ export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
   eslintPluginPrettierRecommended,
-  {
+  /* {
     languageOptions: {
       globals: {
         ...globals.node,
@@ -31,5 +31,5 @@ export default tseslint.config(
       "@typescript-eslint/no-unsafe-argument": "warn",
       "prettier/prettier": ["error", { endOfLine: "auto" }],
     },
-  },
+  }, */
 );
