@@ -1,5 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { Task } from "./entities/tasks.entities";
+import { CreateTaskDto } from "./dto/create-tasks.dto";
+import { UpdateTaskDto } from "./dto/uptade-tasks.dto";
 
 @Injectable()
 export class TasksService {
@@ -8,7 +10,8 @@ export class TasksService {
     {
       id: 1,
       name: "estudando programação",
-      description: "Apredendo muito sobre nest.js"
+      description: "Apredendo muito sobre nest.js",
+      completed: false,
     }
    ]
 
@@ -25,12 +28,13 @@ export class TasksService {
 
   }
 
-  create(body: any) {
+  create(createTaskDto: CreateTaskDto) {
     const newId = this.tasks.length + 1
 
     const newTask = {
       id: newId,
-      ...body,
+      ...createTaskDto,
+      completed: false
     }
 
     this.tasks.push(newTask)
@@ -38,10 +42,10 @@ export class TasksService {
     return newTask
   }
     
-  update(id: string, body: any){
+  update(id: string, updateTaskDto: UpdateTaskDto){
     const taskIndex = this.tasks.findIndex( task=> task.id === Number(id))
 
-    if (taskIndex >= 0){
+    if (taskIndex < 0){
        throw new HttpException("Essa tarefa não existe.", HttpStatus.NOT_FOUND)
     }
       
@@ -49,7 +53,7 @@ export class TasksService {
 
       this.tasks [taskIndex] = {
         ...taskItem,
-        ...body,
+        ...updateTaskDto,
       }
 
     return this.tasks[taskIndex]
