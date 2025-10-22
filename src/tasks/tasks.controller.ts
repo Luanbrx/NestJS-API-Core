@@ -38,7 +38,6 @@ export class TasksController {
 
   @Delete(":id")
   deleteTasks(@Param("id") id: string) {
-    console.log("ID ENVIADO");
-    return "deleta a tarefa com id" + id;
+    return this.tasksService.delete(id)
   }
 }
